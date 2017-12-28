@@ -1,41 +1,49 @@
 package com.oosdclass.taskTrackerApp2.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.oosdclass.taskTrackerApp2.dao.TaskDAO;
 import com.oosdclass.taskTrackerApp2.model.Task;
 import com.oosdclass.taskTrackerApp2.service.TaskService;
 
+@Service
 public class TaskServiceImpl implements TaskService {
 
+	// create default properties
+
+	public static final String DEFAULT_STATUS = "OPEN";
+
+	public static final String DEFAULT_ASSIGNED = "UNASSIGNED";
+
+	// Dependency Injection & Inversion Of Control
+
+	@Autowired
+
+	TaskDAO taskdao;
+
 	@Override
+
 	public List<Task> retrieveAllTasks() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return taskdao.retrieveAllTasks();
+
 	}
-	
-	
-	public List<Task> mockTaskDAO(){
-		Task task1 = new Task();
-		Task task2 = new Task();
-		//set all the values for task 1 and 2 
-		
-		task1.setTaskID(1);
-		task1.setDescription("abc");
-		task1.setStatus("Accomplished");
-		task1.setAssignedTo("Open");
-		
-		task2.setTaskID(1);
-		task2.setDescription("abc");
-		task2.setStatus("Accomplished");
-		task2.setAssignedTo("Open");
-		
-		
-		List<Task> taskList = new ArrayList<Task>();
-		taskList.add(task1);
-		taskList.add(task2);
-		
-		return taskList;
+
+	// to be replaced by whatever the service layer creates - this is my attempt at
+	// the service layer!
+
+	@Override
+
+	public void saveTask(Task task) {
+
+		task.setStatus(DEFAULT_STATUS);
+
+		task.setAssignedTo(DEFAULT_ASSIGNED);
+
+		taskdao.saveTask(task);
 	}
 
 }

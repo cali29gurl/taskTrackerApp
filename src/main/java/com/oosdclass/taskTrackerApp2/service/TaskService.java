@@ -8,4 +8,6 @@ public interface TaskService {
 	
 	List<Task>retrieveAllTasks();
 	
+	void saveTask(Task task);
+	
 }
